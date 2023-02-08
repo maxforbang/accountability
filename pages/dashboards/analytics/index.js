@@ -51,7 +51,7 @@ function Analytics() {
   const { sales, tasks } = reportsLineChartData;
 
   const color = "#000000";
-  const progress = 39;
+  const progress = 41;
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -65,7 +65,7 @@ function Analytics() {
                   textTransform="capitalize"
                   color="text"
               >
-                55 Days Until End of Quarter 1
+                53 Days Until End of Quarter 1
               </MDTypography>
             </MDBox>
             <MDBox width="25%" ml="auto">
@@ -92,8 +92,9 @@ function Analytics() {
                     title="Danny"
                     description={
                       <>
-                        <ul> - Private label one product</ul>
-                        <ul> - Hire a VA or be narrowed down to the final round</ul>
+                          <li>Hire a VA / get to final round </li>
+                          <li>Sending private label product into Amazon </li>
+                          <li>Source 2 hours/day </li>
                       </>
                     }
                     date="just updated"
@@ -108,11 +109,10 @@ function Analytics() {
                     title="Trent"
                     description={
                       <>
-                        <ul> - Buy Miles course</ul>
-                        <ul> - Buy first product</ul>
-                        <ul> - Register LLC</ul>
-                        <ul> - Source 2 hours a day</ul>
-                        <ul> - Read 30 min/day</ul>
+                          <li>Package and send in first product </li>
+                          <li>Create a plan for LLC </li>
+                          <li>Source 2 hours/day </li>
+                          <li>Join Miles{"'"}s class </li>
                       </>
                     }
                     date="just updated"
@@ -127,12 +127,7 @@ function Analytics() {
                     title="Chris"
                     description={
                       <>
-                        <ul> - Post 10 reels</ul>
-                        <ul> - Script 10 reels</ul>
-                        <ul> - Film candid with Max</ul>
-                        <ul> - Take action from Madisons Call</ul>
-                        <ul> - Story highlights</ul>
-                        <ul> - Limit technology to 20 min/day</ul>
+                        <li>Get numbers up</li>
                       </>
                     }
                     date="just updated"
@@ -147,8 +142,11 @@ function Analytics() {
                     title="Max"
                     description={
                       <>
-                        <ul> - Create Basic Avengers Site</ul>
-                        <ul> - Next.js blog for Mastela</ul>
+                        <li>Set up Avengersassembly.tech domain </li>
+                        <li>Create Avengers Login</li>
+                          <ul> - Edit profile</ul>
+                          <ul> - View others{"'"} profiles</ul>
+                        <li>Create Editable Weekly Checklists </li>
                       </>
                     }
                     date="just updated"
