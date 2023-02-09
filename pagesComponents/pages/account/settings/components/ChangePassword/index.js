@@ -60,7 +60,7 @@ function ChangePassword() {
         <MDTypography variant="h5">Change Password</MDTypography>
       </MDBox>
       <MDBox component="form" pb={3} px={3}>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} mb={5}>
           <Grid item xs={12}>
             <MDInput
               fullWidth
@@ -83,29 +83,14 @@ function ChangePassword() {
             />
           </Grid>
         </Grid>
-        <MDBox mt={6} mb={1}>
-          <MDTypography variant="h5">Password requirements</MDTypography>
+        <MDBox style={{display: 'flex', justifyContent: 'center'}}>
+          <MDButton variant="gradient" color="dark" size="small" >
+            update password
+          </MDButton>
         </MDBox>
-        <MDBox mb={1}>
-          <MDTypography variant="body2" color="text">
-            Please follow this guide for a strong password
-          </MDTypography>
-        </MDBox>
-        <MDBox
-          display="flex"
-          justifyContent="space-between"
-          alignItems="flex-end"
-          flexWrap="wrap"
-        >
-          <MDBox component="ul" m={0} pl={3.25} mb={{ xs: 8, sm: 0 }}>
-            {renderPasswordRequirements}
-          </MDBox>
-          <MDBox ml="auto">
-            <MDButton variant="gradient" color="dark" size="small">
-              update password
-            </MDButton>
-          </MDBox>
-        </MDBox>
+
+
+
       </MDBox>
     </Card>
   );

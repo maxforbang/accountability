@@ -29,14 +29,10 @@ function Sidenav() {
   const { darkMode } = controller;
 
   const sidenavItems = [
-    { icon: "person", label: "profile", href: "profile" },
+    { icon: "person", label: "profile picture", href: "profile" },
     { icon: "receipt_long", label: "basic info", href: "basic-info" },
+    { icon: "star", label: "Year Goals", href: "goals-info" },
     { icon: "lock", label: "change password", href: "change-password" },
-    { icon: "security", label: "2FA", href: "2fa" },
-    { icon: "badge", label: "accounts", href: "accounts" },
-    { icon: "campaign", label: "notifications", href: "notifications" },
-    { icon: "settings_applications", label: "sessions", href: "sessions" },
-    { icon: "delete", label: "delete account", href: "delete-account" },
   ];
 
   const renderSidenavItems = sidenavItems.map(({ icon, label, href }, key) => {
