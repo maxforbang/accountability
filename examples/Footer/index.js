@@ -42,6 +42,9 @@ function Footer({ company, links }) {
       </MDBox>
     ));
 
+  return null;
+
+  /*
   return (
     <MDBox
       width="100%"
@@ -95,6 +98,9 @@ function Footer({ company, links }) {
       </MDBox>
     </MDBox>
   );
+  */
+
+
 }
 
 // Setting default values for the props of Footer

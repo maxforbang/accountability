@@ -46,7 +46,7 @@ import profilePicture from "/assets/images/team-3.jpg";
 const routes = [
   {
     type: "collapse",
-    name: "Danny Engels",
+    name: "**Name**",
     key: "brooklyn-alice",
     icon: <MDAvatar src={profilePicture.src} alt="Avenger Avatar" size="sm" />,
     collapse: [
@@ -71,7 +71,7 @@ const routes = [
   { type: "divider", key: "divider-0" },
   {
     type: "collapse",
-    name: "Home",
+    name: "Overview",
     key: "home",
     route: "/dashboards/analytics",
     icon: <Icon fontSize="medium">home</Icon>,
