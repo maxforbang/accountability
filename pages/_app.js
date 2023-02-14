@@ -172,7 +172,7 @@ function Main({ Component, pageProps }) {
               onMouseLeave={handleOnMouseLeave}
             />
             <Configurator />
-            {configsButton}
+            {/*{configsButton}*/}
           </>
         )}
         {layout === "vr" && <Configurator />}
@@ -193,7 +193,7 @@ function Main({ Component, pageProps }) {
             onMouseLeave={handleOnMouseLeave}
           />
           <Configurator />
-          {configsButton}
+          {/*{configsButton}*/}
         </>
       )}
       {layout === "vr" && <Configurator />}
@@ -213,7 +213,7 @@ function MyApp({
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="shortcut icon" href={favicon.src} />
           <link rel="apple-touch-icon" sizes="76x76" href={appleIcon.src} />
-          <title>Next Material Dashboard 2 PRO</title>
+          <title>Avengers Assembly</title>
         </Head>
         <Main Component={Component} pageProps={pageProps} />
       </CacheProvider>
