@@ -51,7 +51,10 @@ function Analytics() {
   const { sales, tasks } = reportsLineChartData;
 
   const color = "#000000";
-  const progress = 41;
+
+  const daysLeft = (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24);
+  console.log(daysLeft)
+  const progress = Math.round((daysLeft / 90) * 100);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -65,7 +68,7 @@ function Analytics() {
                   textTransform="capitalize"
                   color="text"
               >
-                53 Days Until End of Quarter 1
+                  {Math.ceil(daysLeft)} Days Until End of Quarter 1
               </MDTypography>
             </MDBox>
             <MDBox width="25%" ml="auto">
@@ -92,9 +95,9 @@ function Analytics() {
                     title="Danny"
                     description={
                       <>
-                          <li>Hire a VA / get to final round </li>
-                          <li>Sending private label product into Amazon </li>
-                          <li>Source 2 hours/day </li>
+                              <li>10 new ASINS and/or 5 new replenishments</li>
+                              <li>Start final round for VA{"'"}s / get through phone interviews</li>
+                              <li>Get one Instagram post organized for Thailand</li>
                       </>
                     }
                     date="just updated"
@@ -109,10 +112,9 @@ function Analytics() {
                     title="Trent"
                     description={
                       <>
-                          <li>Package and send in first product </li>
-                          <li>Create a plan for LLC </li>
-                          <li>Source 2 hours/day </li>
-                          <li>Join Miles{"'"}s class </li>
+                              <li>List first product if account gets cleared</li>
+                              <li>Register LLC and immediately apply for card if it processes</li>
+                              <li>Finish sports betting and collect income</li>
                       </>
                     }
                     date="just updated"
@@ -127,7 +129,13 @@ function Analytics() {
                     title="Chris"
                     description={
                       <>
-                        <li>Get numbers up</li>
+                            <li>Make thumbnails for 5 balcony reels</li>
+                            <li>Send80 Magic Referral messages</li>
+                            <li>Change YouTube banner</li>
+                            <li>Add rest of testimonials to mobile view on site</li>
+                            <li>Trade video testimonials with Luke</li>
+                            <li>Put chapters into long and medium-form YT videos</li>
+                            <li>Whatever Madison instructs</li>
                       </>
                     }
                     date="just updated"
@@ -142,11 +150,10 @@ function Analytics() {
                     title="Max"
                     description={
                       <>
-                        <li>Set up Avengersassembly.tech domain </li>
-                        <li>Create Avengers Login</li>
-                          <ul> - Edit profile</ul>
-                          <ul> - View others{"'"} profiles</ul>
-                        <li>Create Editable Weekly Checklists </li>
+                            <li>Upwork Profile + Services Descriptions</li>
+                            <li>Functional Avengers Login</li>
+                            <li>Close out sports betting intro offers</li>
+                            <li>Job Search 1hr/day</li>
                       </>
                     }
                     date="just updated"
