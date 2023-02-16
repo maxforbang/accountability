@@ -35,7 +35,7 @@ function CountdownCard ({progress}) {
 						{progress}%
 					</MDTypography>
 					<MDBox mt={0.25}>
-						<MDProgress variant="gradient" color='text' value={progress}/>
+						<MDProgress variant="gradient" color='dark' value={progress}/>
 					</MDBox>
 				</MDBox>
 			</MDBox>
@@ -44,3 +44,9 @@ function CountdownCard ({progress}) {
 }
 
 export default CountdownCard;
+
+export async function getServerSideProps(context) {
+	const db = await getMongoDb();
+
+	return { props: { } };
+}

@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 
 import Link from "next/link";
 
@@ -39,11 +39,44 @@ import BasicLayout from "/pagesComponents/authentication/components/BasicLayout"
 
 // Images
 import bgImage from "/assets/images/bg-sign-in-basic.jpeg";
+import {fetcher} from "../../../../lib/fetch";
+import {useRouter} from "next/router";
+import {useCurrentUser} from "../../../../lib/user/hooks";
 
 function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const { data: { user } = {}, mutate, isValidating } = useCurrentUser();
+  const router = useRouter();
+
+  const onSubmit = useCallback(
+      async (event) => {
+        event.preventDefault();
+        try {
+          const response = await fetcher('/api/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: emailRef.current.value,
+              password: passwordRef.current.value,
+            }),
+          });
+          mutate({ user: response.user }, false);
+          //toast.success('You have been logged in.');
+        } catch (e) {
+          //toast.error('Incorrect email or password.');
+        } finally {
+        }
+      },
+      [mutate]
+  );
+
+  useEffect(() => {
+    if (isValidating) return;
+    if (user) router.replace('/dashboard/analytics');
+  }, [user, router, isValidating]);
 
   return (
     <BasicLayout image={bgImage}>
@@ -60,88 +93,24 @@ function Basic() {
           textAlign="center"
         >
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Sign in
+            Avengers Login
           </MDTypography>
-          <Grid
-            container
-            spacing={3}
-            justifyContent="center"
-            sx={{ mt: 1, mb: 2 }}
-          >
-            <Grid item xs={2}>
-              <MDTypography
-                component={MuiLink}
-                href="#"
-                variant="body1"
-                color="white"
-              >
-                <FacebookIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography
-                component={MuiLink}
-                href="#"
-                variant="body1"
-                color="white"
-              >
-                <GitHubIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography
-                component={MuiLink}
-                href="#"
-                variant="body1"
-                color="white"
-              >
-                <GoogleIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-          </Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <MDBox onSubmit={onSubmit} component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput type="email" label="Email" fullWidth inputRef={emailRef} />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput type="password" label="Password" fullWidth inputRef={passwordRef} />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Remember me
-              </MDTypography>
-            </MDBox>
+            {/*REMEMBER ME TOGGLE*/}
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="dark" fullWidth>
+              <MDButton type='submit' variant="gradient" color="dark" fullWidth>
                 sign in
               </MDButton>
             </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Don&apos;t have an account?{" "}
-                <Link href="/authentication/sign-up/cover">
-                  <a>
-                    <MDTypography
-                      variant="button"
-                      color="dark"
-                      fontWeight="medium"
-                      textGradient
-                    >
-                      Sign up
-                    </MDTypography>
-                  </a>
-                </Link>
-              </MDTypography>
-            </MDBox>
+            {/*SIGN UP*/}
           </MDBox>
         </MDBox>
       </Card>
@@ -150,3 +119,41 @@ function Basic() {
 }
 
 export default Basic;
+
+
+// const [rememberMe, setRememberMe] = useState(false);
+// const handleSetRememberMe = () => setRememberMe(!rememberMe);
+//
+{/*REMEMBER ME TOGGLE*/}
+{/*<MDBox display="flex" alignItems="center" ml={-1}>*/}
+{/*  <Switch checked={rememberMe} onChange={handleSetRememberMe} />*/}
+{/*  <MDTypography*/}
+{/*    variant="button"*/}
+{/*    fontWeight="regular"*/}
+{/*    color="text"*/}
+{/*    onClick={handleSetRememberMe}*/}
+{/*    sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}*/}
+{/*  >*/}
+{/*    &nbsp;&nbsp;Remember me*/}
+{/*  </MDTypography>*/}
+{/*</MDBox>*/}
+
+
+{/*SIGN UP*/}
+{/*<MDBox mt={3} mb={1} textAlign="center">*/}
+{/*  <MDTypography variant="button" color="text">*/}
+{/*    Don&apos;t have an account?{" "}*/}
+{/*    <Link href="/authentication/sign-up/cover">*/}
+{/*      <a>*/}
+{/*        <MDTypography*/}
+{/*          variant="button"*/}
+{/*          color="dark"*/}
+{/*          fontWeight="medium"*/}
+{/*          textGradient*/}
+{/*        >*/}
+{/*          Sign up*/}
+{/*        </MDTypography>*/}
+{/*      </a>*/}
+{/*    </Link>*/}
+{/*  </MDTypography>*/}
+{/*</MDBox>*/}

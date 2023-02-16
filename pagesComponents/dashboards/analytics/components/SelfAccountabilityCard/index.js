@@ -108,9 +108,6 @@ SelfAccountabilityCard.propTypes = {
 	name: PropTypes.string.isRequired,
 	description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 	date: PropTypes.string.isRequired,
-	chart: PropTypes.objectOf(
-		PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-	).isRequired,
 };
 
 export default SelfAccountabilityCard;
