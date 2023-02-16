@@ -49,12 +49,13 @@ import {Line} from "react-chartjs-2";
 import AccountabilityCard from "../../../pagesComponents/dashboards/analytics/components/AccountabilityCard";
 import SelfAccountabilityCard from "../../../pagesComponents/dashboards/analytics/components/SelfAccountabilityCard";
 import CountdownCard from "../../../pagesComponents/dashboards/analytics/components/CountdownCard";
+import {useCurrentUser} from "@/lib/user";
 
-function Analytics() {
-	const {sales, tasks} = reportsLineChartData;
+function Analytics({daysLeft}) {
+	const { data: { user } = {} } = useCurrentUser()
 
-	const color = "#000000";
-	const progress = 99;
+	console.log(user);
+
 	const role = '**role**'
 	const names = ['Danny', 'Trent', 'Chris'];
 	const cards = names.map((item) => (
@@ -87,7 +88,7 @@ function Analytics() {
 							<SelfAccountabilityCard date='just updated' name="**users name**" role='**users role**'/>
 						</Grid>
 						<Grid item lg={5}>
-							<CountdownCard progress={progress}/>
+							<CountdownCard daysLeft={daysLeft} />
 						</Grid>
 					</Grid>
 				</MDBox>
@@ -104,3 +105,11 @@ function Analytics() {
 }
 
 export default Analytics;
+
+export async function getServerSideProps() {
+	//const db = await getMongoDb();
+
+	const daysLeft = (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24);
+
+	return { props: { daysLeft } };
+}

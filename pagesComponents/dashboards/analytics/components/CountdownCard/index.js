@@ -3,7 +3,9 @@ import MDTypography from "../../../../../components/MDTypography";
 import MDProgress from "../../../../../components/MDProgress";
 import Card from "@mui/material/Card";
 
-function CountdownCard ({progress}) {
+function CountdownCard ({daysLeft}) {
+	const progress = Math.round((daysLeft / 90) * 100);
+
 	return (
 		<Card >
 			<MDBox display="flex" alignItems="center" p={4}>
@@ -14,7 +16,7 @@ function CountdownCard ({progress}) {
 						textTransform="capitalize"
 						color="text"
 					>
-						53 days
+						{Math.ceil(daysLeft)} days
 					</MDTypography>
 					<MDTypography
 						variant="button"
@@ -44,9 +46,3 @@ function CountdownCard ({progress}) {
 }
 
 export default CountdownCard;
-
-export async function getServerSideProps(context) {
-	const db = await getMongoDb();
-
-	return { props: { } };
-}
