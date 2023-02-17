@@ -1,5 +1,5 @@
 import { ValidateProps } from '@/api-lib/constants';
-import { findUserByUsername, updateUserById } from '@/api-lib/db';
+import {findOtherUsers, findUserByUsername, updateUserById} from '@/api-lib/db';
 import { auths, validateBody } from '@/api-lib/middlewares';
 import { getMongoDb } from '@/api-lib/mongodb';
 import { ncOpts } from '@/api-lib/nc';
@@ -29,7 +29,11 @@ handler.use(...auths);
 
 handler.get(async (req, res) => {
   if (!req.user) return res.json({ user: null });
-  return res.json({ user: req.user });
+
+  const db = await getMongoDb();
+  const peers = await findOtherUsers(db, req.user._id);
+
+  return res.json({ user: req.user, peers: peers });
 });
 
 handler.patch(

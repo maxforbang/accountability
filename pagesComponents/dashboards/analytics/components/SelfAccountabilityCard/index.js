@@ -37,7 +37,9 @@ import CheckboxList from "../CheckBoxList";
 
 // SelfAccountabilityCard configurations
 
-function SelfAccountabilityCard({name, role, description, date}) {
+function SelfAccountabilityCard({user, description, date}) {
+
+	const {name, role} = user;
 
 	return (
 		<Card sx={{height: "100%"}} shadow={false}>

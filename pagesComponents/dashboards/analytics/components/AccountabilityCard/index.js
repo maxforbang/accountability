@@ -33,10 +33,27 @@ import Grid from "@mui/material/Grid";
 import MDAvatar from "../../../../../components/MDAvatar";
 import burceMars from "../../../../../assets/images/bruce-mars.jpg";
 import MDProgress from "../../../../../components/MDProgress";
+import {useCurrentUser} from "@/lib/user";
+import {useGetWeeklyAccountabilityQuery} from "@/lib/accountability";
 
 // AccountabilityCard configurations
 
-function AccountabilityCard({name, role, description, date}) {
+function AccountabilityCard({user, description, date}) {
+
+	const { data: { accountability } = {}, mutate, isValidating } =  useGetWeeklyAccountabilityQuery(user.weekly)
+
+	// console.log(accountability)
+
+
+	// [{
+	// 		task: 'Get more tein',
+	// 		completed: false
+	// 	},
+	// 	{
+	// 		task: 'Get more tein',
+	// 		completed: false
+	// 	}
+	// 	]
 
 	return (
 		<Card sx={{height: "100%"}}>
@@ -52,11 +69,11 @@ function AccountabilityCard({name, role, description, date}) {
 						<MDBox display='flex' justifyContent='space-between' width='100%'>
 							<MDBox lineHeight={1} my='auto' ml={2.5}>
 								<MDTypography variant="h5" fontWeight="medium" textTransform="capitalize">
-									{name}
+									{user.name}
 								</MDTypography>
 								<MDTypography variant="button" color="text" fontWeight="regular"
 								              textTransform="capitalize">
-									{role}
+									{user.role}
 								</MDTypography>
 							</MDBox>
 							<MDTypography variant="h3" color="text" fontWeight="regular" textTransform="capitalize"
