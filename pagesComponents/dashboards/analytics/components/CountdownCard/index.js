@@ -4,12 +4,12 @@ import MDProgress from "../../../../../components/MDProgress";
 import Card from "@mui/material/Card";
 
 function CountdownCard ({daysLeft}) {
-	const progress = Math.round((daysLeft / 90) * 100);
+	const progress = Math.round((90 - daysLeft) / 90 * 100);
 
 	return (
-		<Card >
-			<MDBox display="flex" alignItems="center" p={4}>
-				<MDBox ml={2} lineHeight={1}>
+		<Card sx={{height: "100%"}}>
+			<MDBox display="flex" flexDirection='column' justifyContent='space-between' alignItems='stretch' p={4}>
+				<MDBox ml={2} mb='35%' lineHeight={1}>
 					<MDTypography
 						variant="h4"
 						fontWeight="bold"
@@ -27,7 +27,7 @@ function CountdownCard ({daysLeft}) {
 						Until End of Quarter 1
 					</MDTypography>
 				</MDBox>
-				<MDBox width="25%" ml="auto">
+				<MDBox width="100%" ml="auto">
 					<MDTypography
 						display="block"
 						variant="caption"

@@ -34,12 +34,37 @@ import MDAvatar from "../../../../../components/MDAvatar";
 import burceMars from "../../../../../assets/images/bruce-mars.jpg";
 import MDProgress from "../../../../../components/MDProgress";
 import CheckboxList from "../CheckBoxList";
+import {useGetWeeklyAccountabilityQuery} from "@/lib/accountability";
+import {useGetAccountabilityGoalsQuery} from "@/lib/goals";
+import Danny from "@/assets/images/profile-pics/Danny.png";
+import Trent from "@/assets/images/profile-pics/Trent.png";
+import Chris from "@/assets/images/profile-pics/Chris.png";
+import Max from "@/assets/images/profile-pics/Max.png";
 
 // SelfAccountabilityCard configurations
 
 function SelfAccountabilityCard({user, description, date}) {
 
+	const { data: { accountability } = {}, mutate, isValidating } =  useGetWeeklyAccountabilityQuery(user.weekly)
+	const { data: { goals = [] } = {}, mutateGoals, isValidatingGoals } =  useGetAccountabilityGoalsQuery(accountability?._id)
+
 	const {name, role} = user;
+
+	// Change to dynamic Profile Pic CRUD
+	let profile;
+	switch (name) {
+		case 'Danny':
+			profile = Danny;
+			break;
+		case 'Trent':
+			profile = Trent;
+			break;
+		case 'Chris':
+			profile = Chris;
+			break;
+		case 'Max':
+			profile = Max;
+	}
 
 	return (
 		<Card sx={{height: "100%"}} shadow={false}>
@@ -47,7 +72,7 @@ function SelfAccountabilityCard({user, description, date}) {
 				<MDBox pt={3} pb={1} px={1}>
                     <MDBox display='flex' mb={3}>
 						<MDAvatar
-							src={burceMars.src}
+							src={profile.src}
 							alt="profile-image"
 							size="xl"
 							shadow="sm"
@@ -64,12 +89,14 @@ function SelfAccountabilityCard({user, description, date}) {
 							</MDBox>
 							<MDTypography variant="h3" color="text" fontWeight="regular" textTransform="capitalize"
 							              m='auto'>
-								{'4/6'}
+								{/*{'3/6'}*/}
 							</MDTypography>
 						</MDBox>
 					</MDBox>
-                    <MDProgress variant="gradient" color='dark' value={50} />
-					<CheckboxList />
+                    <MDProgress variant="gradient" color='dark' value={0} />
+					<MDBox mt={2.5}>
+					<CheckboxList goals={goals} />
+					</MDBox>
 					<Divider/>
 					<MDBox display="flex" alignItems="center">
 						<MDTypography

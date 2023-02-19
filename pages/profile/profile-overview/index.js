@@ -67,7 +67,7 @@ function Overview() {
                   <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
                   <ProfileDescriptionCard
                       title="profile information"
-                      description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+                      description="Unfinished profile page. Boutta be fookin' sick doe"
                       action={{
                           route: "/pages/profile/profile-overview",
                           tooltip: "Edit Profile",

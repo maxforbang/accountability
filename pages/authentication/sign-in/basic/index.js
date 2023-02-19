@@ -75,7 +75,7 @@ function Basic() {
 
   useEffect(() => {
     if (isValidating) return;
-    if (user) router.replace('/dashboard/analytics');
+    if (user) router.replace('/dashboards/analytics');
   }, [user, router, isValidating]);
 
   return (

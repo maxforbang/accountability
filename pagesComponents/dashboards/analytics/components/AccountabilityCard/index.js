@@ -31,29 +31,42 @@ import MDBox from "/components/MDBox";
 import MDTypography from "/components/MDTypography";
 import Grid from "@mui/material/Grid";
 import MDAvatar from "../../../../../components/MDAvatar";
-import burceMars from "../../../../../assets/images/bruce-mars.jpg";
+import Danny from "../../../../../assets/images/profile-pics/Danny.png";
+import Trent from "../../../../../assets/images/profile-pics/Trent.png";
+import Chris from "../../../../../assets/images/profile-pics/Chris.png";
+import Max from "../../../../../assets/images/profile-pics/Max.png";
+import bruceMars from "assets/images/bruce-mars.jpg";
 import MDProgress from "../../../../../components/MDProgress";
 import {useCurrentUser} from "@/lib/user";
 import {useGetWeeklyAccountabilityQuery} from "@/lib/accountability";
+import {useGetAccountabilityGoalsQuery} from "@/lib/goals";
 
 // AccountabilityCard configurations
 
 function AccountabilityCard({user, description, date}) {
 
 	const { data: { accountability } = {}, mutate, isValidating } =  useGetWeeklyAccountabilityQuery(user.weekly)
+	const { data: { goals = [] } = {}, mutateGoals, isValidatingGoals } =  useGetAccountabilityGoalsQuery(accountability?._id)
 
-	// console.log(accountability)
+	const listItems = goals.map((goal) =>
+		<li key={goal._id}> {goal.goal} </li>
+	)
 
-
-	// [{
-	// 		task: 'Get more tein',
-	// 		completed: false
-	// 	},
-	// 	{
-	// 		task: 'Get more tein',
-	// 		completed: false
-	// 	}
-	// 	]
+	// Change to dynamic Profile Pic CRUD
+	let profile;
+	switch (user.name) {
+		case 'Danny':
+			profile = Danny;
+			break;
+		case 'Trent':
+			profile = Trent;
+			break;
+		case 'Chris':
+			profile = Chris;
+			break;
+		case 'Max':
+			profile = Max;
+	}
 
 	return (
 		<Card sx={{height: "100%"}}>
@@ -61,7 +74,7 @@ function AccountabilityCard({user, description, date}) {
 				<MDBox pt={3} pb={1} px={1}>
                     <MDBox display='flex' mb={4}>
 						<MDAvatar
-							src={burceMars.src}
+							src={profile.src}
 							alt="profile-image"
 							size="xl"
 							shadow="sm"
@@ -78,19 +91,22 @@ function AccountabilityCard({user, description, date}) {
 							</MDBox>
 							<MDTypography variant="h3" color="text" fontWeight="regular" textTransform="capitalize"
 							              m='auto'>
-								{'4/6'}
+								{/*{'4/6'}*/}
 							</MDTypography>
 						</MDBox>
 					</MDBox>
-                    <MDProgress variant="gradient" color='dark' value={50} />
+                    <MDProgress variant="gradient" color='dark' value={0} />
 					<MDTypography
 						component="div"
 						variant="button"
 						color="text"
 						fontWeight="light"
-                        mt={3.5}
+                        mt={3}
+						ml={2}
 					>
-						{description}
+						<ul>
+							{listItems}
+						</ul>
 					</MDTypography>
 					<Divider/>
 					<MDBox display="flex" alignItems="center">

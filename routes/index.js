@@ -71,7 +71,7 @@ const routes = [
   { type: "divider", key: "divider-0" },
   {
     type: "collapse",
-    name: "Overview",
+    name: "Dashboard",
     key: "home",
     route: "/dashboards/analytics",
     icon: <Icon fontSize="medium">home</Icon>,
