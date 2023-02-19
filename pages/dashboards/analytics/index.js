@@ -1,171 +1,114 @@
-/**
-=========================================================
-* NextJS Material Dashboard 2 PRO - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/nextjs-material-dashboard-pro
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
 import Grid from "@mui/material/Grid";
-import Tooltip from "@mui/material/Tooltip";
-import Icon from "@mui/material/Icon";
-
-// NextJS Material Dashboard 2 PRO components
 import MDBox from "/components/MDBox";
-import MDTypography from "/components/MDTypography";
-
-// NextJS Material Dashboard 2 PRO examples
 import DashboardLayout from "/examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "/examples/Navbars/DashboardNavbar";
-import Footer from "/examples/Footer";
-import ReportsBarChart from "/examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "/examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "/examples/Cards/StatisticsCards/ComplexStatisticsCard";
-import BookingCard from "/examples/Cards/BookingCard";
+import AccountabilityCard from "../../../pagesComponents/dashboards/analytics/components/AccountabilityCard";
+import SelfAccountabilityCard from "../../../pagesComponents/dashboards/analytics/components/SelfAccountabilityCard";
+import CountdownCard from "../../../pagesComponents/dashboards/analytics/components/CountdownCard";
+import {useCurrentUser} from "@/lib/user";
+import routes from "/routes";
+import profilePicture from "@/assets/images/team-3.jpg";
+import MDAvatar from "@/components/MDAvatar";
+import Danny from "@/assets/images/profile-pics/Danny.png";
+import Trent from "@/assets/images/profile-pics/Trent.png";
+import Chris from "@/assets/images/profile-pics/Chris.png";
+import Max from "@/assets/images/profile-pics/Max.png";
+import {useEffect} from "react";
+import {useRouter} from "next/router";
 
-// Anaytics dashboard components
-import SalesByCountry from "/pagesComponents/dashboards/analytics/components/SalesByCountry";
 
-// Data
-import reportsBarChartData from "/pagesComponents/dashboards/analytics/data/reportsBarChartData";
-import reportsLineChartData from "/pagesComponents/dashboards/analytics/data/reportsLineChartData";
 
-// Images
-import booking1 from "/assets/images/products/product-1-min.jpg";
-import booking2 from "/assets/images/products/product-2-min.jpg";
-import booking3 from "/assets/images/products/product-3-min.jpg";
-import MDProgress from "../../../components/MDProgress";
-import Card from "@mui/material/Card";
-import {useMemo} from "react";
-import {Line} from "react-chartjs-2";
+function Analytics({ daysLeft}) {
+	const { data: { user, peers = [] } = {}, mutate, isValidating } = useCurrentUser();
+	const router = useRouter();
 
-function Analytics() {
-  const { sales, tasks } = reportsLineChartData;
+	useEffect(() => {
+		if (isValidating) return;
+		if (!user) router.replace('/authentication/sign-in/basic');
+	}, [user, router, isValidating]);
 
-  const color = "#000000";
+	if (!user) {
+		return (
+			<div>Loading...</div>
+		)
+	}
 
-  const daysLeft = (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24);
+	// Change to dynamic Profile Pic CRUD
+	let profile;
+	switch (user.name) {
+		case 'Danny':
+			profile = Danny;
+			break;
+		case 'Trent':
+			profile = Trent;
+			break;
+		case 'Chris':
+			profile = Chris;
+			break;
+		case 'Max':
+			profile = Max;
+	}
 
-  const progress = Math.round((daysLeft / 90) * 100);
-  return (
-    <DashboardLayout>
-      <MDBox py={3}>
-        <Card>
-          <MDBox display="flex" alignItems="center" p={4}>
-            <MDBox ml={2} lineHeight={1}>
-              <MDTypography
-                  variant="button"
-                  fontWeight="bold"
-                  textTransform="capitalize"
-                  color="text"
-              >
-                  {Math.ceil(daysLeft)} Days Until End of Quarter 1
-              </MDTypography>
-            </MDBox>
-            <MDBox width="25%" ml="auto">
-              <MDTypography
-                  display="block"
-                  variant="caption"
-                  fontWeight="medium"
-                  color="text"
-              >
-                {progress}%
-              </MDTypography>
-              <MDBox mt={0.25}>
-                <MDProgress variant="gradient" color={color} value={progress} />
-              </MDBox>
-            </MDBox>
-          </MDBox>
-        </Card>
-        <MDBox mt={6}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                    color="success"
-                    title="Danny"
-                    description={
-                      <>
-                              <li>10 new ASINS and/or 5 new replenishments</li>
-                              <li>Start final round for VA{"'"}s / get through phone interviews</li>
-                              <li>Get one Instagram post organized for Thailand</li>
-                      </>
-                    }
-                    date="just updated"
-                    chart={sales}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                    color="success"
-                    title="Trent"
-                    description={
-                      <>
-                              <li>List first product if account gets cleared</li>
-                              <li>Register LLC and immediately apply for card if it processes</li>
-                              <li>Finish sports betting and collect income</li>
-                      </>
-                    }
-                    date="just updated"
-                    chart={sales}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                    color="success"
-                    title="Chris"
-                    description={
-                      <>
-                            <li>Make thumbnails for 5 balcony reels</li>
-                            <li>Send80 Magic Referral messages</li>
-                            <li>Change YouTube banner</li>
-                            <li>Add rest of testimonials to mobile view on site</li>
-                            <li>Trade video testimonials with Luke</li>
-                            <li>Put chapters into long and medium-form YT videos</li>
-                            <li>Whatever Madison instructs</li>
-                      </>
-                    }
-                    date="just updated"
-                    chart={sales}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                    color="success"
-                    title="Max"
-                    description={
-                      <>
-                            <li>Upwork Profile + Services Descriptions</li>
-                            <li>Functional Avengers Login</li>
-                            <li>Close out sports betting intro offers</li>
-                            <li>Job Search 30 min/day</li>
-                      </>
-                    }
-                    date="just updated"
-                    chart={sales}
-                />
-              </MDBox>
-            </Grid>
-          </Grid>
-        </MDBox>
-      </MDBox>
-    </DashboardLayout>
-  );
+	routes[0].name = user.name;
+	routes[0].icon = <MDAvatar src={profile.src} alt="Avenger Avatar" size="sm" />
 
+	const cards = peers.map((peer) => (
+			<Grid key={peer._id} item xs={12} md={6} lg={4}>
+				<MDBox mb={3}>
+					<AccountabilityCard
+						user={peer}
+						date='updated 4 min ago'
+					/>
+				</MDBox>
+			</Grid>
+		)
+	);
+
+	return (
+		<DashboardLayout>
+			<DashboardNavbar/>
+			<MDBox py={3}>
+				<MDBox id="self-accountability-card">
+					<Grid container spacing={3} wrap='wrap-reverse'>
+						<Grid item lg={7}>
+							<SelfAccountabilityCard user={user} date='just updated' />
+						</Grid>
+						<Grid item lg={5}>
+							<CountdownCard daysLeft={daysLeft} />
+						</Grid>
+					</Grid>
+				</MDBox>
+
+				<MDBox id="others-accountability-box" mt={6}>
+					<Grid container spacing={3}>
+						{cards}
+					</Grid>
+				</MDBox>
+			</MDBox>
+		</DashboardLayout>
+	);
 }
 
 export default Analytics;
+
+export async function getServerSideProps(context) {
+	const daysLeft = (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24);
+
+	//const db = await getMongoDb();
+	// const response = await updateGoalById(db, '63e5c0fe5aa1737bc18d5567', {completed: true});
+	// console.log(response)
+
+	// const params = new URLSearchParams({ id: '63e5c0fe5aa1737bc18d5567' });
+	// const response = await fetch(`/api/goal?${params}`, {
+	// 	method: 'POST',
+	// 	body: JSON.stringify({ completed: false }),
+	// 	headers: {
+	// 		'Content-Type': 'application/json',
+	// 	},
+	// });
+	// const data = await response.json();
+	// console.log(data);
+
+
+	return { props: { daysLeft } };
+}

@@ -27,8 +27,11 @@ import MDAvatar from "/components/MDAvatar";
 
 // Images
 import burceMars from "/assets/images/bruce-mars.jpg";
+import Tooltip from "@mui/material/Tooltip";
+import Icon from "@mui/material/Icon";
+import Link from "next/link";
 
-function Header() {
+function Header({name, role}) {
   const [visible, setVisible] = useState(true);
 
   const handleSetVisible = () => setVisible(!visible);
@@ -47,11 +50,11 @@ function Header() {
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
-              <MDTypography variant="h5" fontWeight="medium">
-                Alex Thompson
+              <MDTypography variant="h5" fontWeight="medium" textTransform="capitalize">
+                {name}
               </MDTypography>
-              <MDTypography variant="button" color="text" fontWeight="medium">
-                CEO / Co-Founder
+              <MDTypography variant="button" color="text" fontWeight="medium" textTransform="capitalize">
+                {role}
               </MDTypography>
             </MDBox>
           </Grid>
@@ -62,12 +65,15 @@ function Header() {
               alignItems="center"
               lineHeight={1}
             >
-              <MDTypography variant="caption" fontWeight="regular">
-                Switch to {visible ? "invisible" : "visible"}
-              </MDTypography>
-              <MDBox ml={1}>
-                <Switch checked={visible} onChange={handleSetVisible} />
-              </MDBox>
+              {/*<Link href={action.route}>*/}
+              {/*  <a>*/}
+              {/*    <MDTypography variant="body2" color="secondary">*/}
+              {/*      <Tooltip title={action.tooltip} placement="top">*/}
+              {/*        <Icon>edit</Icon>*/}
+              {/*      </Tooltip>*/}
+              {/*    </MDTypography>*/}
+              {/*  </a>*/}
+              {/*</Link>*/}
             </MDBox>
           </Grid>
         </Grid>

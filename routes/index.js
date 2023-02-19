@@ -46,37 +46,37 @@ import profilePicture from "/assets/images/team-3.jpg";
 const routes = [
   {
     type: "collapse",
-    name: "Home",
+    name: "**Name**",
+    key: "brooklyn-alice",
+    icon: <MDAvatar src={profilePicture.src} alt="Avenger Avatar" size="sm" />,
+    collapse: [
+      {
+        name: "My Profile",
+        key: "my-profile",
+        route: "/profile/profile-overview",
+      },
+      {
+        name: "Settings",
+        key: "profile-settings",
+        route: "/account/settings",
+      },
+      {
+        name: "Logout",
+        key: "logout",
+        route: "/authentication/sign-in/basic",
+      },
+    ],
+  },
+
+  { type: "divider", key: "divider-0" },
+  {
+    type: "collapse",
+    name: "Dashboard",
     key: "home",
     route: "/dashboards/analytics",
     icon: <Icon fontSize="medium">home</Icon>,
     noCollapse: true,
   },
-
-  // {
-  //   type: "collapse",
-  //   name: "Brooklyn Alice",
-  //   key: "brooklyn-alice",
-  //   icon: <MDAvatar src={profilePicture.src} alt="Brooklyn Alice" size="sm" />,
-  //   collapse: [
-  //     {
-  //       name: "My Profile",
-  //       key: "my-profile",
-  //       route: "/pages/profile/profile-overview",
-  //     },
-  //     {
-  //       name: "Settings",
-  //       key: "profile-settings",
-  //       route: "/pages/account/settings",
-  //     },
-  //     {
-  //       name: "Logout",
-  //       key: "logout",
-  //       route: "/authentication/sign-in/basic",
-  //     },
-  //   ],
-  // },
-  // { type: "divider", key: "divider-0" },
   // {
   //   type: "collapse",
   //   name: "Dashboards",
