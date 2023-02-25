@@ -43,13 +43,12 @@ import {useGetAccountabilityGoalsQuery} from "@/lib/goals";
 
 // AccountabilityCard configurations
 
-function AccountabilityCard({user, description, date}) {
+function AccountabilityCard({user, date}) {
 
-	const { data: { accountability } = {}, mutate, isValidating } =  useGetWeeklyAccountabilityQuery(user.weekly)
-	const { data: { goals = [] } = {}, mutateGoals, isValidatingGoals } =  useGetAccountabilityGoalsQuery(accountability?._id)
+	const {weekly: goals} = user;
 
-	const listItems = goals.map((goal) =>
-		<li key={goal._id}> {goal.goal} </li>
+	const listItems = goals.map((goal, index) =>
+		<li key={index}> {goal.goal} </li>
 	)
 
 	// Change to dynamic Profile Pic CRUD
@@ -91,11 +90,11 @@ function AccountabilityCard({user, description, date}) {
 							</MDBox>
 							<MDTypography variant="h3" color="text" fontWeight="regular" textTransform="capitalize"
 							              m='auto'>
-								{/*{'4/6'}*/}
+								{`${goals.filter(goal => goal.completed == true).length}/${goals.length}`}
 							</MDTypography>
 						</MDBox>
 					</MDBox>
-                    <MDProgress variant="gradient" color='dark' value={0} />
+                    <MDProgress variant="gradient" color='dark' value={goals.filter(goal => goal.completed == true).length/goals.length * 100} />
 					<MDTypography
 						component="div"
 						variant="button"
@@ -145,9 +144,9 @@ AccountabilityCard.propTypes = {
 		"error",
 		"dark",
 	]),
-	name: PropTypes.string.isRequired,
+	name: PropTypes.string,
 	description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-	date: PropTypes.string.isRequired,
+	date: PropTypes.string
 };
 
 export default AccountabilityCard;

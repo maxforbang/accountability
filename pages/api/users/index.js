@@ -1,5 +1,5 @@
 import { ValidateProps } from '@/api-lib/constants';
-import {findOtherUsers, findUserByEmail, findUserById, findUserByUsername, insertUser} from '@/api-lib/db';
+import {findUserByEmail, findUserByUsername, insertUser} from '@/api-lib/db';
 import { auths, validateBody } from '@/api-lib/middlewares';
 import { getMongoDb } from '@/api-lib/mongodb';
 import { ncOpts } from '@/api-lib/nc';
@@ -9,15 +9,6 @@ import isEmail from 'validator/lib/isEmail';
 import normalizeEmail from 'validator/lib/normalizeEmail';
 
 const handler = nc(ncOpts);
-
-// handler.get(async (req, res) => {
-//   console.log('Request')
-//   console.log(req)
-//   debugger;
-//   const db = await getMongoDb();
-//   const users = await findOtherUsers(db, req.query.id);
-//   res.json({ users });
-// });
 
 handler.post(
   validateBody({

@@ -1,5 +1,4 @@
 import {getMongoDb} from "@/api-lib/mongodb";
-import {findOtherUsers, findUserById} from "@/api-lib/db";
 import nc from "next-connect";
 import {ncOpts} from "@/api-lib/nc";
 import {findAccountabilityById} from "@/api-lib/db/accountability";

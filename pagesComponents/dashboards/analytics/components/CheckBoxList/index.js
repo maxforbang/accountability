@@ -11,12 +11,16 @@ import {useGoal} from "@/lib/goal";
 import {useEffect} from "react";
 import useSWR, {mutate} from "swr";
 import {fetcher} from "@/lib/fetch";
+import { useSWRConfig } from "swr"
+import {useCurrentUser, useWeeklyAccountability} from "@/lib/user";
 
 export default function CheckboxList({goals}) {
 
 	const [checked, setChecked] = React.useState(goals.filter(goal => goal.completed == true));
 
-	// const {data, mutate} = useSWR(`/api/goal`, fetcher);
+	const {data: { user }, mutate} = useCurrentUser();
+
+	console.log('1234')
 
 	React.useEffect(() => {
 		setChecked(goals.filter(goal => goal.completed == true));
@@ -25,40 +29,53 @@ export default function CheckboxList({goals}) {
 	const handleToggle = (value) => async () => {
 		const currentIndex = checked.indexOf(value);
 		const newChecked = [...checked];
+		const newWeekly = [...user.weekly];
+		let newGoal;
 
 		if (currentIndex === -1) {
+			newGoal = {...value, completed: true}
 			newChecked.push(value);
-			await fetch(
-				`/api/goal?id=${value._id}`,
-				{
-					method: 'PATCH',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-						completed: false,
-					}),
-				},
-			)
 		} else {
+			newGoal = {...value, completed: false}
 			newChecked.splice(currentIndex, 1);
-			mutate({
-				goal: {
-					...value,
-					completed: false
-				}
-			}, true, 'PATCH')
 		}
 
+		newWeekly[newWeekly.indexOf(value)] = newGoal
+
 		setChecked(newChecked);
+
+		try {
+
+			console.log('stringify')
+			console.log(
+				JSON.stringify({
+					weekly: newWeekly
+				})
+			)
+
+			const response = await fetcher('/api/user', {
+				method: 'PATCH',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					weekly: newWeekly
+				}),
+			});
+			mutate({ user: response.user }, false);
+			//toast.success('You have been logged in.');
+		} catch (e) {
+			console.log(e)
+			//toast.error('Incorrect email or password.');
+		} finally {
+		}
+		//mutate({...user, weekly: newWeekly})
 	};
 
-	const listItems = goals.map((goal) => {
+	const listItems = goals.map((goal, index) => {
 		const labelId = `checkbox-list-label-${goal.goal}`;
 
 		return (
 			<ListItem
-				key={goal._id}
+				key={index}
 				secondaryAction={
 					<IconButton edge="end" aria-label="comments">
 						<CommentIcon />

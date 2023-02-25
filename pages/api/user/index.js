@@ -1,5 +1,5 @@
 import { ValidateProps } from '@/api-lib/constants';
-import {findOtherUsers, findUserByUsername, updateUserById} from '@/api-lib/db';
+import {findUserByUsername, updateUserById} from '@/api-lib/db';
 import { auths, validateBody } from '@/api-lib/middlewares';
 import { getMongoDb } from '@/api-lib/mongodb';
 import { ncOpts } from '@/api-lib/nc';
@@ -29,11 +29,7 @@ handler.use(...auths);
 
 handler.get(async (req, res) => {
   if (!req.user) return res.json({ user: null });
-
-  const db = await getMongoDb();
-  const peers = await findOtherUsers(db, req.user._id);
-
-  return res.json({ user: req.user, peers: peers });
+  return res.json({ user: req.user});
 });
 
 handler.patch(
@@ -64,7 +60,7 @@ handler.patch(
       });
       profilePicture = image.secure_url;
     }
-    const { name, bio } = req.body;
+    const { name, bio, weekly} = req.body;
 
     let username;
 
@@ -86,16 +82,17 @@ handler.patch(
       ...(name && { name }),
       ...(typeof bio === 'string' && { bio }),
       ...(profilePicture && { profilePicture }),
+      ...(weekly && {weekly})
     });
 
     res.json({ user });
   }
 );
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 export default handler;

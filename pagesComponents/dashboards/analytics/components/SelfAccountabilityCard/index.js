@@ -13,42 +13,30 @@ Coded by www.creative-tim.com
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  */
 
-import {useMemo} from "react";
-
 // porp-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-// react-chartjs-2 components
-import {Line} from "react-chartjs-2";
 
 // @mui material components
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
 
-// NextJS Material Dashboard 2 PRO components
 import MDBox from "/components/MDBox";
 import MDTypography from "/components/MDTypography";
-import Grid from "@mui/material/Grid";
-import MDAvatar from "../../../../../components/MDAvatar";
-import burceMars from "../../../../../assets/images/bruce-mars.jpg";
+import MDAvatar from '../../../../../components/MDAvatar';
 import MDProgress from "../../../../../components/MDProgress";
 import CheckboxList from "../CheckBoxList";
-import {useGetWeeklyAccountabilityQuery} from "@/lib/accountability";
-import {useGetAccountabilityGoalsQuery} from "@/lib/goals";
 import Danny from "@/assets/images/profile-pics/Danny.png";
 import Trent from "@/assets/images/profile-pics/Trent.png";
 import Chris from "@/assets/images/profile-pics/Chris.png";
 import Max from "@/assets/images/profile-pics/Max.png";
+import breakpoints from "@/assets/theme/base/breakpoints";
 
-// SelfAccountabilityCard configurations
 
-function SelfAccountabilityCard({user, description, date}) {
+function SelfAccountabilityCard({user, description, date, mutate}) {
 
-	const { data: { accountability } = {}, mutate, isValidating } =  useGetWeeklyAccountabilityQuery(user.weekly)
-	const { data: { goals = [] } = {}, mutateGoals, isValidatingGoals } =  useGetAccountabilityGoalsQuery(accountability?._id)
-
-	const {name, role} = user;
+	const {_id, name, role, weekly: goals} = user;
 
 	// Change to dynamic Profile Pic CRUD
 	let profile;
@@ -66,11 +54,15 @@ function SelfAccountabilityCard({user, description, date}) {
 			profile = Max;
 	}
 
+	const goalsCompleted = goals.filter(goal => goal.completed == true)
+
+	const goalsColor = goalsCompleted.length == goals.length ? 'rgb(27,157,17)' : 'secondary'
+
 	return (
 		<Card sx={{height: "100%"}} shadow={false}>
-              <MDBox padding="1rem">
+			<MDBox padding="1rem">
 				<MDBox pt={3} pb={1} px={1}>
-                    <MDBox display='flex' mb={3}>
+					<MDBox display='flex' mb={3}>
 						<MDAvatar
 							src={profile.src}
 							alt="profile-image"
@@ -87,15 +79,17 @@ function SelfAccountabilityCard({user, description, date}) {
 									{role}
 								</MDTypography>
 							</MDBox>
-							<MDTypography variant="h3" color="text" fontWeight="regular" textTransform="capitalize"
-							              m='auto'>
-								{/*{'3/6'}*/}
+							<MDTypography variant="h3" color={goalsColor} fontWeight="regular" textTransform="capitalize"
+							              fontSize={window.innerWidth < breakpoints.values.lg ? 'fontSizeRegular' : '2em'}
+							              m='auto' >
+								{`${goalsCompleted.length}/${goals.length}`}
 							</MDTypography>
 						</MDBox>
 					</MDBox>
-                    <MDProgress variant="gradient" color='dark' value={0} />
+					<MDProgress  color={goalsColor}
+					            value={goalsCompleted.length / goals.length * 100}/>
 					<MDBox mt={2.5}>
-					<CheckboxList goals={goals} />
+						<CheckboxList goals={goals} mutate={mutate}/>
 					</MDBox>
 					<Divider/>
 					<MDBox display="flex" alignItems="center">
@@ -134,9 +128,9 @@ SelfAccountabilityCard.propTypes = {
 		"error",
 		"dark",
 	]),
-	name: PropTypes.string.isRequired,
+	name: PropTypes.string,
 	description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-	date: PropTypes.string.isRequired,
+	date: PropTypes.string,
 };
 
 export default SelfAccountabilityCard;

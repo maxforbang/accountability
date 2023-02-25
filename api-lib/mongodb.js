@@ -33,9 +33,6 @@ export async function getMongoClient() {
   if (!global.mongoClientPromise) {
     const client = new MongoClient(process.env.MONGODB_URI);
 
-    console.log('Environment Variable:')
-    console.log(process.env.MONGODB_URI)
-
     // client.connect() returns an instance of MongoClient when resolved
     global.mongoClientPromise = client
       .connect()

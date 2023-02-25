@@ -5,7 +5,7 @@ import DashboardNavbar from "/examples/Navbars/DashboardNavbar";
 import AccountabilityCard from "../../../pagesComponents/dashboards/analytics/components/AccountabilityCard";
 import SelfAccountabilityCard from "../../../pagesComponents/dashboards/analytics/components/SelfAccountabilityCard";
 import CountdownCard from "../../../pagesComponents/dashboards/analytics/components/CountdownCard";
-import {useCurrentUser} from "@/lib/user";
+import {useCurrentUser, usePeers} from "@/lib/user";
 import routes from "/routes";
 import profilePicture from "@/assets/images/team-3.jpg";
 import MDAvatar from "@/components/MDAvatar";
@@ -15,11 +15,15 @@ import Chris from "@/assets/images/profile-pics/Chris.png";
 import Max from "@/assets/images/profile-pics/Max.png";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
+import {getMongoDb} from "@/api-lib/mongodb";
 
 
 
 function Analytics({ daysLeft}) {
-	const { data: { user, peers = [] } = {}, mutate, isValidating } = useCurrentUser();
+
+	const { data: { user } = {}, mutate, isValidating } = useCurrentUser();
+	const { data: {peers = []} = {} } = usePeers(user?._id);
+
 	const router = useRouter();
 
 	useEffect(() => {
@@ -32,6 +36,7 @@ function Analytics({ daysLeft}) {
 			<div>Loading...</div>
 		)
 	}
+
 
 	// Change to dynamic Profile Pic CRUD
 	let profile;
@@ -71,7 +76,7 @@ function Analytics({ daysLeft}) {
 				<MDBox id="self-accountability-card">
 					<Grid container spacing={3} wrap='wrap-reverse'>
 						<Grid item lg={7}>
-							<SelfAccountabilityCard user={user} date='just updated' />
+							<SelfAccountabilityCard user={user} date='just updated' mutate={mutate} />
 						</Grid>
 						<Grid item lg={5}>
 							<CountdownCard daysLeft={daysLeft} />
@@ -94,7 +99,7 @@ export default Analytics;
 export async function getServerSideProps(context) {
 	const daysLeft = (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24);
 
-	//const db = await getMongoDb();
+	const db = await getMongoDb();
 	// const response = await updateGoalById(db, '63e5c0fe5aa1737bc18d5567', {completed: true});
 	// console.log(response)
 
@@ -109,6 +114,43 @@ export async function getServerSideProps(context) {
 	// const data = await response.json();
 	// console.log(data);
 
+
+
+// 	const {insertedIds} = await db.collection('goals').insertMany([
+// 		{
+// 			goal: "Strukter Site MVP",
+// 			description: "",
+// 			completed: false
+// 		},
+// 		{
+// 			goal: "Grind 75 1 hr/day",
+// 			description: "",
+// 			completed: false
+// 		},
+// 		{
+// 			goal: "Avengers - Self-Managed Task Lists",
+// 			description: "",
+// 			completed: false
+// 		}
+// 	])
+//
+// 	const goalsList = Object.values(insertedIds);
+//
+// 	console.log(goalsList)
+//
+// 	db.collection('users').updateOne({name: 'Max'},
+// 		{
+// 			$set: {
+// 				weekly: db.collection('accountability').insertOne({
+// 					user_id: db.collection('users').findOne({name: 'Max'}, {_id: 1}),
+// 					goals: goalsList
+// 				}).insertedId
+// 			}
+// 		});
+//
+// console.log('updated!')
+//
+//
 
 	return { props: { daysLeft } };
 }

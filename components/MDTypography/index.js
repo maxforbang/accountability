@@ -73,19 +73,19 @@ MDTypography.defaultProps = {
 
 // Typechecking props for the MDTypography
 MDTypography.propTypes = {
-  color: PropTypes.oneOf([
-    "inherit",
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-    "text",
-    "white",
-  ]),
+  // color: PropTypes.oneOf([
+  //   "inherit",
+  //   "primary",
+  //   "secondary",
+  //   "info",
+  //   "success",
+  //   "warning",
+  //   "error",
+  //   "light",
+  //   "dark",
+  //   "text",
+  //   "white",
+  // ]),
   fontWeight: PropTypes.oneOf([false, "light", "regular", "medium", "bold"]),
   textTransform: PropTypes.oneOf([
     "none",

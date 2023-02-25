@@ -62,9 +62,11 @@ export default styled(Typography)(({ theme, ownerState }) => {
     zIndex: 1,
   });
 
+  const validColor = /^#(?:[0-9a-fA-F]{3}){1,2}$|^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(?:,(\d(?:\.\d+)?))?\)$/
+
   // color value
   let colorValue =
-    color === "inherit" || !palette[color] ? "inherit" : palette[color].main;
+    color === "inherit" || !palette[color] ? (validColor.test(color) ? color : "inherit") : palette[color].main;
 
   if (darkMode && (color === "inherit" || !palette[color])) {
     colorValue = "inherit";

@@ -56,16 +56,16 @@ MDProgress.defaultProps = {
 // Typechecking props for the MDProgress
 MDProgress.propTypes = {
   variant: PropTypes.oneOf(["contained", "gradient"]),
-  color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-  ]),
+  // color: PropTypes.oneOf([
+  //   "primary",
+  //   "secondary",
+  //   "info",
+  //   "success",
+  //   "warning",
+  //   "error",
+  //   "light",
+  //   "dark",
+  // ]),
   value: PropTypes.number,
   label: PropTypes.bool,
 };

@@ -68,12 +68,14 @@ import favicon from "/assets/images/favicon.png";
 import appleIcon from "/assets/images/apple-icon.png";
 import brandWhite from "/assets/images/logo-ct.png";
 import brandDark from "/assets/images/logo-ct-dark.png";
+import breakpoints from "@/assets/theme/base/breakpoints";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createCache({ key: "css", prepend: true });
 
 function Main({ Component, pageProps }) {
   const [controller, dispatch] = useMaterialUIController();
+
   const {
     miniSidenav,
     direction,

@@ -20,19 +20,22 @@ import LinearProgress from "@mui/material/LinearProgress";
 export default styled(LinearProgress)(({ theme, ownerState }) => {
   const { palette, functions } = theme;
   const { color, value, variant } = ownerState;
+  console.log(color)
 
   const { text, gradients } = palette;
   const { linearGradient } = functions;
 
   // background value
   let backgroundValue;
+  const validColor = /^#(?:[0-9a-fA-F]{3}){1,2}$|^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(?:,(\d(?:\.\d+)?))?\)$/
 
   if (variant === "gradient") {
     backgroundValue = gradients[color]
       ? linearGradient(gradients[color].main, gradients[color].state)
       : linearGradient(gradients.dark.main, gradients.dark.state);
   } else {
-    backgroundValue = palette[color] ? palette[color].main : palette.dark.main;
+    backgroundValue = palette[color] ? palette[color].main : validColor.test(color) ? color : palette.dark.main;
+    console.log('valid = ' + validColor.test(color))
   }
 
   return {
