@@ -86,7 +86,7 @@ export default function CheckboxList({goals}) {
 							inputProps={{ 'aria-labelledby': labelId }}
 						/>
 					</ListItemIcon>
-					<ListItemText id={labelId} primary={goal.goal} style={{color: 'gray'}}/>
+					<ListItemText id={labelId} primary={goal.goal} style={goal.completed ? {color: 'rgb(72,168,68)'}  : {color: 'gray'}}/>
 				</ListItemButton>
 			</ListItem>
 		);
