@@ -65,6 +65,12 @@ function Overview() {
     const [editing, setEditing] = useState(false);
     const [newGoals, setNewGoals] = useState(null);
 
+    if (!user) {
+        return (
+            <div>Loading...</div>
+        )
+    }
+
     // Change to dynamic Profile Pic CRUD
     let profile;
     switch (user.name) {
