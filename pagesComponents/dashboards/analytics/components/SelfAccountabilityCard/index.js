@@ -32,11 +32,20 @@ import Trent from "@/assets/images/profile-pics/Trent.png";
 import Chris from "@/assets/images/profile-pics/Chris.png";
 import Max from "@/assets/images/profile-pics/Max.png";
 import breakpoints from "@/assets/theme/base/breakpoints";
+import IconButton from "@mui/material/IconButton";
+import {navbarMobileMenu} from "../../../../../examples/Navbars/DashboardNavbar/styles";
+import {useState} from "react";
+import EditList from "../EditList";
+import {fetcher} from "@/lib/fetch";
+import toast from "react-hot-toast";
+import GoalsTracker from "../../../../shared/GoalsTracker";
 
 
-function SelfAccountabilityCard({user, description, date, mutate}) {
+function SelfAccountabilityCard({user, date, mutate}) {
 
 	const {_id, name, role, weekly: goals} = user;
+	const [editing, setEditing] = useState(false);
+	const [newGoals, setNewGoals] = useState(null);
 
 	// Change to dynamic Profile Pic CRUD
 	let profile;
@@ -54,14 +63,37 @@ function SelfAccountabilityCard({user, description, date, mutate}) {
 			profile = Max;
 	}
 
-	const goalsCompleted = goals.filter(goal => goal.completed == true)
+	const goalsCompleted = goals.filter(goal => goal.completed === true)
+	const goalsColor = goalsCompleted.length === goals.length ? 'rgb(72,168,68)' : 'secondary'
 
-	const goalsColor = goalsCompleted.length == goals.length ? 'rgb(27,157,17)' : 'secondary'
+	const toggleEditing = () => {
+		setEditing(!editing)
+	}
+
+	const saveGoals = async () => {
+		console.log(newGoals)
+
+		try {
+			const response = await fetcher('/api/user', {
+				method: 'PATCH',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					weekly: newGoals
+				}),
+			});
+			mutate({ user: response.user }, false);
+			toast.success('Goals saved!');
+			toggleEditing()
+		} catch (e) {
+			console.log(e)
+			//toast.error('Incorrect email or password.');
+		}
+	}
 
 	return (
-		<Card sx={{height: "100%"}} shadow={false}>
+		<Card sx={{height: "100%"}}>
 			<MDBox padding="1rem">
-				<MDBox pt={3} pb={1} px={1}>
+				<MDBox pt={3} pb={2} px={1}>
 					<MDBox display='flex' mb={3}>
 						<MDAvatar
 							src={profile.src}
@@ -86,25 +118,8 @@ function SelfAccountabilityCard({user, description, date, mutate}) {
 							</MDTypography>
 						</MDBox>
 					</MDBox>
-					<MDProgress  color={goalsColor}
-					            value={goalsCompleted.length / goals.length * 100}/>
-					<MDBox mt={2.5}>
-						<CheckboxList goals={goals} mutate={mutate}/>
-					</MDBox>
-					<Divider/>
-					<MDBox display="flex" alignItems="center">
-						<MDTypography
-							variant="button"
-							color="text"
-							lineHeight={1}
-							sx={{mt: 0.15, mr: 0.5}}
-						>
-							<Icon>schedule</Icon>
-						</MDTypography>
-						<MDTypography variant="button" color="text" fontWeight="light">
-							{date}
-						</MDTypography>
-					</MDBox>
+					<MDProgress  color={goalsColor} value={goalsCompleted.length / goals.length * 100}/>
+					<GoalsTracker type='weekly' user={user} mutate={mutate} />
 				</MDBox>
 			</MDBox>
 		</Card>

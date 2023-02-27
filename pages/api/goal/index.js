@@ -14,8 +14,6 @@ handler.post(async (req, res) => {
 		req.status(401).end();
 		return;
 	}
-	debugger;
-	console.log(req.query.id)
 
 	const db = await getMongoDb();
 	const goal = await updateGoalById(db, req.query.id, req.body);

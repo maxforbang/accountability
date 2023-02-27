@@ -4,7 +4,7 @@ import DashboardLayout from "/examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "/examples/Navbars/DashboardNavbar";
 import AccountabilityCard from "../../../pagesComponents/dashboards/analytics/components/AccountabilityCard";
 import SelfAccountabilityCard from "../../../pagesComponents/dashboards/analytics/components/SelfAccountabilityCard";
-import CountdownCard from "../../../pagesComponents/dashboards/analytics/components/CountdownCard";
+import QuarterCard from "../../../pagesComponents/dashboards/analytics/components/QuarterCard";
 import {useCurrentUser, usePeers} from "@/lib/user";
 import routes from "/routes";
 import profilePicture from "@/assets/images/team-3.jpg";
@@ -71,15 +71,15 @@ function Analytics({ daysLeft}) {
 
 	return (
 		<DashboardLayout>
-			<DashboardNavbar/>
+			{/*<DashboardNavbar/>*/}
 			<MDBox py={3}>
 				<MDBox id="self-accountability-card">
 					<Grid container spacing={3} wrap='wrap-reverse'>
-						<Grid item lg={7}>
+						<Grid item lg={7} xs={12}>
 							<SelfAccountabilityCard user={user} date='just updated' mutate={mutate} />
 						</Grid>
-						<Grid item lg={5}>
-							<CountdownCard daysLeft={daysLeft} />
+						<Grid item lg={5} xs={12}>
+							<QuarterCard daysLeft={daysLeft} user={user} mutate={mutate}/>
 						</Grid>
 					</Grid>
 				</MDBox>

@@ -47,9 +47,14 @@ function AccountabilityCard({user, date}) {
 
 	const {weekly: goals} = user;
 
+	const goalsCompleted = goals.filter(goal => goal.completed === true)
+	const goalsColor = goalsCompleted.length === goals.length ? 'rgb(72,168,68)' : 'secondary'
+
 	const listItems = goals.map((goal, index) =>
-		<li key={index}> {goal.goal} </li>
+		<li key={index} style={goal.completed ? {color: 'rgb(72,168,68)', fontWeight: 'bold'} : {color: '#4c5365'}}> {goal.goal} </li>
 	)
+
+
 
 	// Change to dynamic Profile Pic CRUD
 	let profile;
@@ -68,7 +73,7 @@ function AccountabilityCard({user, date}) {
 	}
 
 	return (
-		<Card sx={{height: "100%"}}>
+		<Card sx={{height: "100%"}} className='accountabilityCard'>
               <MDBox padding="1rem">
 				<MDBox pt={3} pb={1} px={1}>
                     <MDBox display='flex' mb={4}>
@@ -88,13 +93,13 @@ function AccountabilityCard({user, date}) {
 									{user.role}
 								</MDTypography>
 							</MDBox>
-							<MDTypography variant="h3" color="text" fontWeight="regular" textTransform="capitalize"
+							<MDTypography variant="h3" color={goalsColor} fontWeight="regular" textTransform="capitalize"
 							              m='auto'>
-								{`${goals.filter(goal => goal.completed == true).length}/${goals.length}`}
+								{`${goalsCompleted.length}/${goals.length}`}
 							</MDTypography>
 						</MDBox>
 					</MDBox>
-                    <MDProgress variant="gradient" color='dark' value={goals.filter(goal => goal.completed == true).length/goals.length * 100} />
+					<MDProgress  color={goalsColor} value={goalsCompleted.length / goals.length * 100}/>
 					<MDTypography
 						component="div"
 						variant="button"
@@ -103,24 +108,24 @@ function AccountabilityCard({user, date}) {
                         mt={3}
 						ml={2}
 					>
-						<ul>
+						<ol>
 							{listItems}
-						</ul>
+						</ol>
 					</MDTypography>
-					<Divider/>
+{/*					<Divider/>
 					<MDBox display="flex" alignItems="center">
 						<MDTypography
 							variant="button"
 							color="text"
 							lineHeight={1}
-							sx={{mt: 0.15, mr: 0.5}}
+							sx={{mt: 0.15, mr: 0.75}}
 						>
 							<Icon>schedule</Icon>
 						</MDTypography>
 						<MDTypography variant="button" color="text" fontWeight="light">
 							{date}
 						</MDTypography>
-					</MDBox>
+					</MDBox>*/}
 				</MDBox>
 			</MDBox>
 		</Card>

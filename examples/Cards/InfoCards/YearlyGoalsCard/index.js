@@ -33,8 +33,9 @@ import colors from "/assets/theme/base/colors";
 import typography from "/assets/theme/base/typography";
 import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";
+import GoalsTracker from "../../../../pagesComponents/shared/GoalsTracker";
 
-function YearlyGoalsCard({ title, description, action, shadow }) {
+function YearlyGoalsCard({ title, description, action, shadow, user, mutate }) {
   const labels = [];
   const values = [];
 
@@ -61,10 +62,10 @@ function YearlyGoalsCard({ title, description, action, shadow }) {
         justifyContent="space-between"
         alignItems="center"
         pt={2}
-        px={2}
+        px={15}
       >
         <MDTypography
-          variant="h6"
+          variant="h3"
           fontWeight="medium"
           textTransform="capitalize"
         >
@@ -90,11 +91,7 @@ function YearlyGoalsCard({ title, description, action, shadow }) {
           <Divider />
         </MDBox>
         <MDBox>
-          <MDBox display="flex" py={1} pr={2}>
-            <List>
-                {goals}
-            </List>
-          </MDBox>
+            <GoalsTracker type='yearly' user={user} mutate={mutate} />
         </MDBox>
       </MDBox>
     </Card>

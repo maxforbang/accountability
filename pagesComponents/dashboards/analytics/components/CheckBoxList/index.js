@@ -13,14 +13,13 @@ import useSWR, {mutate} from "swr";
 import {fetcher} from "@/lib/fetch";
 import { useSWRConfig } from "swr"
 import {useCurrentUser, useWeeklyAccountability} from "@/lib/user";
+import toast from 'react-hot-toast';
 
 export default function CheckboxList({goals}) {
 
-	const [checked, setChecked] = React.useState(goals.filter(goal => goal.completed == true));
+	const [checked, setChecked] = React.useState(goals.filter(goal => goal.completed === true));
 
 	const {data: { user }, mutate} = useCurrentUser();
-
-	console.log('1234')
 
 	React.useEffect(() => {
 		setChecked(goals.filter(goal => goal.completed == true));
@@ -31,6 +30,8 @@ export default function CheckboxList({goals}) {
 		const newChecked = [...checked];
 		const newWeekly = [...user.weekly];
 		let newGoal;
+
+		console.log(newWeekly)
 
 		if (currentIndex === -1) {
 			newGoal = {...value, completed: true}
@@ -45,14 +46,6 @@ export default function CheckboxList({goals}) {
 		setChecked(newChecked);
 
 		try {
-
-			console.log('stringify')
-			console.log(
-				JSON.stringify({
-					weekly: newWeekly
-				})
-			)
-
 			const response = await fetcher('/api/user', {
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application/json' },
@@ -61,7 +54,7 @@ export default function CheckboxList({goals}) {
 				}),
 			});
 			mutate({ user: response.user }, false);
-			//toast.success('You have been logged in.');
+			toast.success('Goal set!');
 		} catch (e) {
 			console.log(e)
 			//toast.error('Incorrect email or password.');
@@ -76,14 +69,14 @@ export default function CheckboxList({goals}) {
 		return (
 			<ListItem
 				key={index}
-				secondaryAction={
-					<IconButton edge="end" aria-label="comments">
-						<CommentIcon />
-					</IconButton>
-				}
+				// secondaryAction={
+				// 	<IconButton edge="end" aria-label="comments">
+				// 		<CommentIcon />
+				// 	</IconButton>
+				// }
 				disablePadding
 			>
-				<ListItemButton role={undefined} onClick={handleToggle(goal)} dense>
+				<ListItemButton role={undefined} onClick={handleToggle(goal)} >
 					<ListItemIcon>
 						<Checkbox
 							edge="start"
@@ -93,14 +86,14 @@ export default function CheckboxList({goals}) {
 							inputProps={{ 'aria-labelledby': labelId }}
 						/>
 					</ListItemIcon>
-					<ListItemText id={labelId} primary={goal.goal} />
+					<ListItemText id={labelId} primary={goal.goal} style={{color: 'gray'}}/>
 				</ListItemButton>
 			</ListItem>
 		);
 	})
 
 	return (
-		<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+		<List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
 			{listItems}
 		</List>
 	);

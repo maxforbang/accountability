@@ -60,7 +60,7 @@ handler.patch(
       });
       profilePicture = image.secure_url;
     }
-    const { name, bio, weekly} = req.body;
+    const { name, bio, weekly, quarterly, yearly} = req.body;
 
     let username;
 
@@ -82,7 +82,9 @@ handler.patch(
       ...(name && { name }),
       ...(typeof bio === 'string' && { bio }),
       ...(profilePicture && { profilePicture }),
-      ...(weekly && {weekly})
+      ...(weekly && {weekly}),
+      ...(quarterly && {quarterly}),
+      ...(yearly && {yearly}),
     });
 
     res.json({ user });

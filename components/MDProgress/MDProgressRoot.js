@@ -20,7 +20,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 export default styled(LinearProgress)(({ theme, ownerState }) => {
   const { palette, functions } = theme;
   const { color, value, variant } = ownerState;
-  console.log(color)
 
   const { text, gradients } = palette;
   const { linearGradient } = functions;
@@ -35,7 +34,6 @@ export default styled(LinearProgress)(({ theme, ownerState }) => {
       : linearGradient(gradients.dark.main, gradients.dark.state);
   } else {
     backgroundValue = palette[color] ? palette[color].main : validColor.test(color) ? color : palette.dark.main;
-    console.log('valid = ' + validColor.test(color))
   }
 
   return {

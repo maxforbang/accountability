@@ -52,18 +52,43 @@ import team3 from "/assets/images/team-3.jpg";
 import team4 from "/assets/images/team-4.jpg";
 import ProfileDescriptionCard from "../../../examples/Cards/ProfileDescriptionCard";
 import YearlyGoalsCard from "../../../examples/Cards/InfoCards/YearlyGoalsCard";
+import Danny from "@/assets/images/profile-pics/Danny.png";
+import Trent from "@/assets/images/profile-pics/Trent.png";
+import Chris from "@/assets/images/profile-pics/Chris.png";
+import Max from "@/assets/images/profile-pics/Max.png";
+import {useCurrentUser} from "@/lib/user";
+import {useState} from "react";
 
-const name = "**name**"
-const role = "**role**"
 function Overview() {
+    const {data: { user }, mutate} = useCurrentUser();
+
+    const [editing, setEditing] = useState(false);
+    const [newGoals, setNewGoals] = useState(null);
+
+    // Change to dynamic Profile Pic CRUD
+    let profile;
+    switch (user.name) {
+        case 'Danny':
+            profile = Danny;
+            break;
+        case 'Trent':
+            profile = Trent;
+            break;
+        case 'Chris':
+            profile = Chris;
+            break;
+        case 'Max':
+            profile = Max;
+    }
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mb={2} />
-      <Header name={name} role={role}>
+      <Header name={user.name} role={user.role} profile={profile}>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
-              <Grid item xs={12} md={6} xl={6} sx={{ display: "flex" }}>
+              {/*<Grid item xs={12} md={6} xl={6} sx={{ display: "flex" }}>
                   <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
                   <ProfileDescriptionCard
                       title="profile information"
@@ -75,9 +100,9 @@ function Overview() {
                       shadow={false}
                   />
                   <Divider orientation="vertical" sx={{ mx: 0 }} />
-              </Grid>
+              </Grid>*/}
               <Grid item xs={12} md={6} xl={6}>
-                <YearlyGoalsCard title="Yearly Goals" shadow={false} />
+                <YearlyGoalsCard title="Yearly Goals" shadow={false} user={user} mutate={mutate}/>
             </Grid>
           </Grid>
         </MDBox>

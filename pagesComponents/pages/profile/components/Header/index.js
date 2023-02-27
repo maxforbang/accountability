@@ -38,7 +38,7 @@ import breakpoints from "/assets/theme/base/breakpoints";
 import burceMars from "/assets/images/bruce-mars.jpg";
 import backgroundImage from "/assets/images/bg-profile.jpeg";
 
-function Header({ children, name, role }) {
+function Header({ children, name, role, profile }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
 
@@ -78,8 +78,8 @@ function Header({ children, name, role }) {
             palette: { gradients },
           }) =>
             `${linearGradient(
-              rgba(gradients.info.main, 0.6),
-              rgba(gradients.info.state, 0.6),
+              rgba(gradients.info.main, 0),
+              rgba(gradients.info.state, 0),
             )}, url(${backgroundImage.src})`,
           backgroundSize: "cover",
           backgroundPosition: "50%",
@@ -98,7 +98,7 @@ function Header({ children, name, role }) {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <MDAvatar
-              src={burceMars.src}
+              src={profile.src}
               alt="profile-image"
               size="xl"
               shadow="sm"

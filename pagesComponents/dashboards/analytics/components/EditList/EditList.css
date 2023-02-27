@@ -1,0 +1,27 @@
+div.react-kanban-board {
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+}
+
+div[data-rbd-droppable-id="board-droppable"] {
+    width: 100%
+}
+
+.accountabilityCard ol {
+    list-style-type: none;
+    margin-left: -15px
+}
+
+.accountabilityCard ol li:before {
+    content: counter(list-item) ") ";
+    margin-right: 10px;
+}
+
+.accountabilityCard li {
+    content: counter(list-item) ") ";
+    margin-bottom: 10px;
+    font-size: 1.2em;
+
+}
+
