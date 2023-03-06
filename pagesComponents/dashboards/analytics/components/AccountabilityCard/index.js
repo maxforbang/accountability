@@ -48,7 +48,7 @@ function AccountabilityCard({user, date}) {
 	const {weekly: goals} = user;
 
 	const goalsCompleted = goals.filter(goal => goal.completed === true)
-	const goalsColor = goalsCompleted.length === goals.length ? 'rgb(72,168,68)' : 'secondary'
+	const goalsColor = goals.length && goalsCompleted.length === goals.length ? 'rgb(72,168,68)' : 'secondary'
 
 	const listItems = goals.map((goal, index) =>
 		<li key={index} style={goal.completed ? {color: 'rgb(72,168,68)', fontWeight: 'bold'} : {color: '#4c5365'}}> {goal.goal} </li>
@@ -99,7 +99,7 @@ function AccountabilityCard({user, date}) {
 							</MDTypography>
 						</MDBox>
 					</MDBox>
-					<MDProgress  color={goalsColor} value={goalsCompleted.length / goals.length * 100}/>
+					<MDProgress  color={goalsColor} value={goals.length ? goalsCompleted.length / goals.length * 100 : 0}/>
 					<MDTypography
 						component="div"
 						variant="button"
