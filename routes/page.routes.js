@@ -36,7 +36,7 @@ import Icon from "@mui/material/Icon";
 const pageRoutes = [
   {
     name: "home",
-    route: "/dashboards/analytics",
+    route: "/",
   }
   // {
   //   name: "pages",
@@ -95,20 +95,20 @@ const pageRoutes = [
   //       ],
   //     },
   //     {
-  //       name: "account",
+  //       name: "profile",
   //       icon: <Icon>account_balance</Icon>,
   //       collapse: [
   //         {
   //           name: "settings",
-  //           route: "/pages/account/setting",
+  //           route: "/pages/profile/setting",
   //         },
   //         {
   //           name: "billing",
-  //           route: "/pages/account/billing",
+  //           route: "/pages/profile/billing",
   //         },
   //         {
   //           name: "invoice",
-  //           route: "/pages/account/invoice",
+  //           route: "/pages/profile/invoice",
   //         },
   //       ],
   //     },
@@ -118,7 +118,7 @@ const pageRoutes = [
   //       collapse: [
   //         {
   //           name: "profile overview",
-  //           route: "/pages/profile/profile-overview",
+  //           route: "/pages/profile",
   //         },
   //         {
   //           name: "all projects",

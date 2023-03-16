@@ -53,17 +53,17 @@ const routes = [
       {
         name: "My Profile",
         key: "my-profile",
-        route: "/profile/profile-overview",
+        route: "/profile",
       },
       {
         name: "Settings",
         key: "profile-settings",
-        route: "/account/settings",
+        route: "/settings",
       },
       {
         name: "Logout",
         key: "logout",
-        route: "/authentication/sign-in/basic",
+        route: "/login",
       },
     ],
   },
@@ -71,9 +71,9 @@ const routes = [
   { type: "divider", key: "divider-0" },
   {
     type: "collapse",
-    name: "Dashboard",
+    name: "Home",
     key: "home",
-    route: "/dashboards/analytics",
+    route: "/",
     icon: <Icon fontSize="medium">home</Icon>,
     noCollapse: true,
   },
@@ -109,7 +109,7 @@ const routes = [
   //         {
   //           name: "Profile Overview",
   //           key: "profile-overview",
-  //           route: "/pages/profile/profile-overview",
+  //           route: "/pages/profile",
   //         },
   //         {
   //           name: "All Projects",
@@ -131,22 +131,22 @@ const routes = [
   //     },
   //     {
   //       name: "Account",
-  //       key: "account",
+  //       key: "profile",
   //       collapse: [
   //         {
   //           name: "Settings",
   //           key: "settings",
-  //           route: "/pages/account/settings",
+  //           route: "/pages/profile/settings",
   //         },
   //         {
   //           name: "Billing",
   //           key: "billing",
-  //           route: "/pages/account/billing",
+  //           route: "/pages/profile/billing",
   //         },
   //         {
   //           name: "Invoice",
   //           key: "invoice",
-  //           route: "/pages/account/invoice",
+  //           route: "/pages/profile/invoice",
   //         },
   //       ],
   //     },

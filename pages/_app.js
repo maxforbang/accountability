@@ -33,14 +33,13 @@ import Icon from "@mui/material/Icon";
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
-import "pagesComponents/dashboards/analytics/components/EditList/EditList.css";
+import "pagesComponents/home/components/EditList/EditList.css";
 
 // NextJS Material Dashboard 2 PRO components
 import MDBox from "/components/MDBox";
 
 // NextJS Material Dashboard 2 PRO examples
 import Sidenav from "/examples/Sidenav";
-import Configurator from "/examples/Configurator";
 
 // NextJS Material Dashboard 2 PRO themes
 import theme from "/assets/theme";
@@ -69,7 +68,6 @@ import favicon from "/assets/images/favicon.png";
 import appleIcon from "/assets/images/apple-icon.png";
 import brandWhite from "/assets/images/logo-ct.png";
 import brandDark from "/assets/images/logo-ct-dark.png";
-import breakpoints from "@/assets/theme/base/breakpoints";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createCache({ key: "css", prepend: true });
@@ -135,30 +133,6 @@ function Main({ Component, pageProps }) {
   const brandIcon =
     (transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite;
 
-  const configsButton = (
-    <MDBox
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      width="3.25rem"
-      height="3.25rem"
-      bgColor="white"
-      shadow="sm"
-      borderRadius="50%"
-      position="fixed"
-      right="2rem"
-      bottom="2rem"
-      zIndex={99}
-      color="dark"
-      sx={{ cursor: "pointer" }}
-      onClick={handleConfiguratorOpen}
-    >
-      <Icon fontSize="small" color="inherit">
-        settings
-      </Icon>
-    </MDBox>
-  );
-
   return direction === "rtl" ? (
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
@@ -174,11 +148,8 @@ function Main({ Component, pageProps }) {
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
-            <Configurator />
-            {/*{configsButton}*/}
           </>
         )}
-        {layout === "vr" && <Configurator />}
       </ThemeProvider>
     </CacheProvider>
   ) : (
@@ -195,11 +166,8 @@ function Main({ Component, pageProps }) {
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
-          <Configurator />
-          {/*{configsButton}*/}
         </>
       )}
-      {layout === "vr" && <Configurator />}
     </ThemeProvider>
   );
 }

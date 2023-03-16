@@ -29,8 +29,8 @@ import IconButton from "@mui/material/IconButton";
 import {useState} from "react";
 import {fetcher} from "@/lib/fetch";
 import toast from "react-hot-toast";
-import EditList from "../../dashboards/analytics/components/EditList";
-import CheckboxList from "../../dashboards/analytics/components/CheckBoxList";
+import EditList from "../../home/components/EditList";
+import CheckboxList from "../../home/components/CheckBoxList";
 
 
 function GoalsTracker({user, date, mutate, type}) {
