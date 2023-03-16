@@ -76,17 +76,17 @@ function GoalsTracker({user, date, mutate, type}) {
 			</MDBox>
 			{/*<Divider />*/}
 			<MDBox display="flex" alignItems="center" mt={3}>
-				<MDTypography
-					variant="button"
-					color="text"
-					lineHeight={1}
-					sx={{mt: 0.15, mr: 0.75}}
-				>
-					{/*<Icon>schedule</Icon>*/}
-				</MDTypography>
-				<MDTypography variant="button" color="text" fontWeight="light">
-					{date}
-				</MDTypography>
+				{/*<MDTypography*/}
+				{/*	variant="button"*/}
+				{/*	color="text"*/}
+				{/*	lineHeight={1}*/}
+				{/*	sx={{mt: 0.15, mr: 0.75}}*/}
+				{/*>*/}
+				{/*	/!*<Icon>schedule</Icon>*!/*/}
+				{/*</MDTypography>*/}
+				{/*<MDTypography variant="button" color="text" fontWeight="light">*/}
+				{/*	{date}*/}
+				{/*</MDTypography>*/}
 				<MDBox ml={'auto'} my={-5} display='flex'>
 					{editing ?
 						<MDBox mr={2.5}>

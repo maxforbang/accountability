@@ -13,11 +13,11 @@ module.exports = withTM({
   reactStrictMode: true,
   async redirects() {
     return [
-      {
-        source: "/",
-        destination: "/login",
-        permanent: true,
-      },
+      // {
+      //   source: "/",
+      //   destination: "/",
+      //   permanent: true,
+      // },
     ];
   },
 });

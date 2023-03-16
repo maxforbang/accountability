@@ -27,7 +27,6 @@ function QuarterCard({daysLeft, user, mutate}) {
 								fontWeight="medium"
 								color="text"
 								align={ xl ? 'left' : 'center' }
-								verticalAlign='center'
 							>
 								Quarter One
 							</MDTypography>

@@ -96,6 +96,7 @@ export default Home;
 
 export async function getServerSideProps(context) {
 	const daysLeft = (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24);
+	console.log(context)
 
 	const db = await getMongoDb();
 	// const response = await updateGoalById(db, '63e5c0fe5aa1737bc18d5567', {completed: true});
