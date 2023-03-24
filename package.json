@@ -1,10 +1,10 @@
 {
-  "name": "nextjs-material-dashboard-2-pro",
+  "name": "accountability-dashboard",
   "version": "1.0.0",
   "private": true,
-  "author": "Creative Tim",
-  "license": "SEE LICENSE IN <https://www.creative-tim.com/license>",
-  "description": "NextJS version of Material Dashboard 2 PRO by Creative Tim",
+  "author": "Max Forbang",
+  "license": "",
+  "description": "Accountability Dashboard",
   "bugs": {
     "url": "https://github.com/creativetimofficial/ct-nextjs-material-dashboard-pro/issues"
   },

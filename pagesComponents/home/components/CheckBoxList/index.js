@@ -31,8 +31,6 @@ export default function CheckboxList({goals}) {
 		const newWeekly = [...user.weekly];
 		let newGoal;
 
-		console.log(newWeekly)
-
 		if (currentIndex === -1) {
 			newGoal = {...value, completed: true}
 			newChecked.push(value);

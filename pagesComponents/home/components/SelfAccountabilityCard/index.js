@@ -66,30 +66,6 @@ function SelfAccountabilityCard({user, date, mutate}) {
 	const goalsCompleted = goals.filter(goal => goal.completed === true)
 	const goalsColor = goalsCompleted.length === goals.length ? 'rgb(72,168,68)' : 'secondary'
 
-	const toggleEditing = () => {
-		setEditing(!editing)
-	}
-
-	const saveGoals = async () => {
-		console.log(newGoals)
-
-		try {
-			const response = await fetcher('/api/user', {
-				method: 'PATCH',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					weekly: newGoals
-				}),
-			});
-			mutate({ user: response.user }, false);
-			toast.success('Goals saved!');
-			toggleEditing()
-		} catch (e) {
-			console.log(e)
-			//toast.error('Incorrect email or password.');
-		}
-	}
-
 	return (
 		<Card sx={{height: "100%"}}>
 			<MDBox padding="1rem">
