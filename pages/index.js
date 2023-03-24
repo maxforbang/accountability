@@ -14,6 +14,7 @@ import Max from "@/assets/images/profile-pics/Max.png";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 import {getMongoDb} from "@/api-lib/mongodb";
+import Loading from "../pagesComponents/home/loading";
 
 
 
@@ -31,7 +32,7 @@ function Home({ daysLeft}) {
 
 	if (!user) {
 		return (
-			<div>Loading...</div>
+			<Loading />
 		)
 	}
 
