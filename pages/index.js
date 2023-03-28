@@ -11,7 +11,7 @@ import Danny from "@/assets/images/profile-pics/Danny.png";
 import Trent from "@/assets/images/profile-pics/Trent.png";
 import Chris from "@/assets/images/profile-pics/Chris.png";
 import Max from "@/assets/images/profile-pics/Max.png";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Loading from "../pagesComponents/home/loading";
 
@@ -21,6 +21,7 @@ function Home({ daysLeft}) {
 
 	const { data: { user } = {}, mutate, isValidating } = useCurrentUser();
 	const { data: {peers = []} = {} } = usePeers(user?._id);
+	const [type, setType] = useState('weekly')
 
 	const router = useRouter();
 
@@ -61,6 +62,8 @@ function Home({ daysLeft}) {
 					<AccountabilityCard
 						user={peer}
 						date='updated 4 min ago'
+						type={type}
+						setType={setType}
 					/>
 				</MDBox>
 			</Grid>

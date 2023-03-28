@@ -40,12 +40,13 @@ import MDProgress from "@/components/MDProgress";
 import {useCurrentUser} from "@/lib/user";
 import {useGetWeeklyAccountabilityQuery} from "@/lib/accountability";
 import {useGetAccountabilityGoalsQuery} from "@/lib/goals";
+import Box from "@mui/material/Box";
 
 // AccountabilityCard configurations
 
-function AccountabilityCard({user, date}) {
+function AccountabilityCard({user, date, type, setType}) {
 
-	const {weekly: goals} = user;
+	const {[type]: goals} = user;
 
 	const goalsCompleted = goals.filter(goal => goal.completed === true)
 	const goalsColor = goals.length && goalsCompleted.length === goals.length ? 'rgb(72,168,68)' : 'secondary'
@@ -73,7 +74,12 @@ function AccountabilityCard({user, date}) {
 	}
 
 	return (
-		<Card sx={{height: "100%"}} className='accountabilityCard'>
+		<Card sx={{height: "100%", position: 'relative'}} className='accountabilityCard'>
+			<Box sx={{position: 'absolute', top: 10, right: 10}}
+			     onClick={() => setType(type == 'weekly' ? 'quarterly' : 'weekly')}
+			>
+				<Icon fontSize='XL'>navigate_next</Icon>
+			</Box>
               <MDBox padding="1rem">
 				<MDBox pt={3} pb={1} px={1}>
                     <MDBox display='flex' mb={4}>
