@@ -13,7 +13,6 @@ import Chris from "@/assets/images/profile-pics/Chris.png";
 import Max from "@/assets/images/profile-pics/Max.png";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
-import {getMongoDb} from "@/api-lib/mongodb";
 import Loading from "../pagesComponents/home/loading";
 
 
@@ -96,60 +95,14 @@ function Home({ daysLeft}) {
 export default Home;
 
 export async function getServerSideProps(context) {
-	const daysLeft = (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24);
+	const daysLeft = Math.max(0, (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24));
 
-	const db = await getMongoDb();
-	// const response = await updateGoalById(db, '63e5c0fe5aa1737bc18d5567', {completed: true});
-	// console.log(response)
+	//const db = await getMongoDb();
 
-	// const params = new URLSearchParams({ id: '63e5c0fe5aa1737bc18d5567' });
-	// const response = await fetch(`/api/goal?${params}`, {
-	// 	method: 'POST',
-	// 	body: JSON.stringify({ completed: false }),
-	// 	headers: {
-	// 		'Content-Type': 'application/json',
-	// 	},
+	// const user = await fetcher('/api/user', {
+	// 	method: 'GET',
+	// 	headers: { 'Content-Type': 'application/json' },
 	// });
-	// const data = await response.json();
-	// console.log(data);
-
-
-
-// 	const {insertedIds} = await db.collection('goals').insertMany([
-// 		{
-// 			goal: "Strukter Site MVP",
-// 			description: "",
-// 			completed: false
-// 		},
-// 		{
-// 			goal: "Grind 75 1 hr/day",
-// 			description: "",
-// 			completed: false
-// 		},
-// 		{
-// 			goal: "Avengers - Self-Managed Task Lists",
-// 			description: "",
-// 			completed: false
-// 		}
-// 	])
-//
-// 	const goalsList = Object.values(insertedIds);
-//
-// 	console.log(goalsList)
-//
-// 	db.collection('users').updateOne({name: 'Max'},
-// 		{
-// 			$set: {
-// 				weekly: db.collection('accountability').insertOne({
-// 					user_id: db.collection('users').findOne({name: 'Max'}, {_id: 1}),
-// 					goals: goalsList
-// 				}).insertedId
-// 			}
-// 		});
-//
-// console.log('updated!')
-//
-//
-
+	
 	return { props: { daysLeft } };
 }
