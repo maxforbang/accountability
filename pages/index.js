@@ -98,7 +98,7 @@ function Home({ daysLeft}) {
 export default Home;
 
 export async function getServerSideProps(context) {
-	const daysLeft = Math.max(0, (new Date("04-01-2023") - new Date()) / (1000 * 60 * 60 * 24));
+	const daysLeft = Math.max(0, (new Date("07-01-2023") - new Date()) / (1000 * 60 * 60 * 24));
 
 	//const db = await getMongoDb();
 
