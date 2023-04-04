@@ -93,9 +93,9 @@ function QuarterCard({daysLeft, user, mutate}) {
 								<TableBody>
 									{[
 										['Trent', 3],
-										['Max', 2],
+										['Max', 3],
 										['Chris', 1],
-										['Danny', 0],
+										['Danny', 1],
 									].map((row) => (
 										<TableRow
 											key={row[0]}
