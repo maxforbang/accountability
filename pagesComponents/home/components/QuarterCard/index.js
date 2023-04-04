@@ -57,7 +57,7 @@ function QuarterCard({daysLeft, user, mutate}) {
 									color="text"
 									align={xl ? 'left' : 'center'}
 								>
-									Quarter One
+									Quarter Two
 								</MDTypography>
 							</Grid>
 							<Grid item xl={6} xs={12} mt={1.5}>
