@@ -92,8 +92,8 @@ function QuarterCard({daysLeft, user, mutate}) {
 							<Table aria-label="simple table">
 								<TableBody>
 									{[
-										['Trent', 6],
-										['Max', 5],
+										['Trent', 7],
+										['Max', 6],
 										['Chris', 3],
 										['Danny', 3],
 									].map((row) => (
